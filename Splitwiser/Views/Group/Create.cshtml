@@ -1,0 +1,13 @@
+﻿@using Splitwiser.Models.Group;
+@model GroupEntity
+
+<h1>Stwórz Grupę</h1>
+
+@using (Html.BeginForm("Create", "Group", FormMethod.Post))
+{
+	<span>Tytuł</span> @Html.TextBoxFor(x => x.GroupName)
+	<br />
+	@Html.ValidationSummary()
+	<button type="submit">Dodaj</button>
+}
+

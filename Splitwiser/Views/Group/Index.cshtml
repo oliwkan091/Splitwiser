@@ -1,0 +1,28 @@
+﻿@using Splitwiser.Models.Group
+@model IEnumerable<GroupEntity>
+<h1>Group</h1>
+
+<a href="/Group/create">Stwórz grupę</a>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+            <tr>
+                <td>@group.GroupName</td>
+                @* <td><a href="@Url.Action("chosenGroup","Book", new { Id = group.Id })">@group.GroupName</a> </td> *@
+                <td>
+                    <a asp-action="chosenGroup" asp-controller="Group" asp-route-id="@group.Id">@group.GroupName</a>
+                </td>
+@*                 <td><a href="@Url.Action("Edit","Book", new { Id = book.Id })">Edytuj</a> </td>
+                <td><a href="@Url.Action("Delete","Book", new { Id = book.Id })">Usuń</a> </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

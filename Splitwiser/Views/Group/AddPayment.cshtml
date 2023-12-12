@@ -1,0 +1,23 @@
+﻿@using Splitwiser.Models.GroupPaymentHistory
+@model Guid 
+<h1>Group</h1>
+
+
+@{
+    // Initialize the model
+    var payment = new GroupPaymentHistoryEntity();
+    //         {
+    //             TransactionName = "Value 1",
+    //             Amount = 42
+    // };
+}
+
+@using (Html.BeginForm("AddPayment", "Group", FormMethod.Post))
+{
+    <span>TransactionName</span> @Html.TextBoxFor(x => payment.TransactionName)
+    <span>Amount</span> @Html.TextBoxFor(x => payment.Amount)
+	<br />
+	@Html.ValidationSummary()
+
+	<button type="submit">Dodaj</button>
+}

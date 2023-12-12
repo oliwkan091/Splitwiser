@@ -1,0 +1,17 @@
+Tworzy migrację
+	Add-migration <NAZWA_MIGRACJI>
+
+	Dla Splitwiser
+		Add-migration init -context SplitwiserDbContext -output EntityFramework/Migrations/Splitwiser
+
+	Dla SplitwiserAuth
+		Add-migration init -context DbSplitwiserAuthContext -output  EntityFramework/Migrations/SplitwiserAuth
+ 
+Aktualizuje wcześniej stworzą migrację na bezie danych 
+	Update-Database
+
+	Dla Splitwiser
+		Update-Database -context SplitwiserDbContext
+
+	Dla SplitwiserAuth
+		Update-Database -context DbSplitwiserAuthContext 

@@ -1,0 +1,15 @@
+﻿@model Models.LoginModel
+
+<h1>Logowanie</h1>
+
+@using (Html.BeginForm("Login", "SplitwiserAuth", FormMethod.Post))
+{
+	<span>Username</span> @Html.TextBoxFor(x => x.Username)
+	<span>Password</span> @Html.PasswordFor(x => x.Password)
+
+	<br />
+	<span>@ViewBag.Error </span>
+
+	@Html.ValidationSummary()
+	<button type="submit">Zaloguj</button>
+}

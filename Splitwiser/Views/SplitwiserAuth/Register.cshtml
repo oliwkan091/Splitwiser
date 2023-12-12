@@ -1,0 +1,16 @@
+﻿@model Models.RegisterModel
+
+<h1>Logowanie</h1>
+
+@using (Html.BeginForm("Register", "SplitwiserAuth", FormMethod.Post))
+{
+	<span>Nazwa</span> @Html.TextBoxFor(x => x.Username)
+	<span>Email</span> @Html.TextBoxFor(x => x.Email)
+	<span>Hasło</span> @Html.PasswordFor(x => x.Password)
+	<span>Hasło ponownie</span> @Html.PasswordFor(x => x.PasswordAgain)
+	<br />
+	<span>@ViewBag.Error </span>
+
+	@Html.ValidationSummary()
+	<button type="submit">Zarejestruj</button>
+}
