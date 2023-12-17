@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace Splitwiser.Models
+namespace Splitwiser.Models.UserEntity
 {
-    public class UserModel : IdentityUser
+    public class UserEntity : IdentityUser
     {
-        public UserModel() { }
+        public UserEntity() { }
 
-        public UserModel(string email, string userName)
+        public UserEntity(string email, string userName)
         {
             Email = email;
             UserName = userName;

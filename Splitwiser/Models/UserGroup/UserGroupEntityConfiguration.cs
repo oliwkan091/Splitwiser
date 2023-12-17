@@ -10,6 +10,8 @@ namespace Splitwiser.Models.UserGroup
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasDefaultValueSql("NEWID()");
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.AddDate)
+                .HasDefaultValueSql("GETDATE()");
         }
     }
 }

@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Splitwiser.EntityFramework;
-using Splitwiser.Models;
 using Splitwiser.Services;
 using Splitwiser.Services.Interfaces;
+using AutoMapper;
+using Splitwiser;
+using Splitwiser.Models.UserEntity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,23 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<IGroupPaymentHistoryService, GroupPaymentHistoryService>();
 builder.Services.AddScoped<IUserGroupService, UserGroupService>();
+builder.Services.AddScoped<IPaymentMemberEntityService, PaymentMemberEntityService>();
+builder.Services.AddScoped<IPaymentInGroupService, PaymentInGroupService>();
+
+//builder.Services.AddAuto(typeof(MappingProfile));
+
+//Dodanie automapper
+///////////
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddMvc();
+///////////////
 
 builder.Services.AddDbContext<SplitwiserDbContext>(builder =>
 {
@@ -30,7 +49,7 @@ builder.Services.AddDbContext<DbSplitwiserAuthContext>(builder =>
     builder.UseSqlServer(@"Server=DESKTOP-9V0MKJK;Database=SplitwiserAuth;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true");
 });
 
-builder.Services.AddIdentity<UserModel, IdentityRole>(options =>
+builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 2;

@@ -18,7 +18,8 @@
                 <td>@group.GroupName</td>
                 @* <td><a href="@Url.Action("chosenGroup","Book", new { Id = group.Id })">@group.GroupName</a> </td> *@
                 <td>
-                    <a asp-action="chosenGroup" asp-controller="Group" asp-route-id="@group.Id">@group.GroupName</a>
+                    @* action to nazwa metody  *@
+                    <a asp-action="@group.Id" asp-controller="group" >@group.GroupName</a>
                 </td>
 @*                 <td><a href="@Url.Action("Edit","Book", new { Id = book.Id })">Edytuj</a> </td>
                 <td><a href="@Url.Action("Delete","Book", new { Id = book.Id })">Usuń</a> </td> *@

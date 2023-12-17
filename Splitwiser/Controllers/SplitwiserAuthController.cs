@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Splitwiser.Models;
+using Splitwiser.Models.UserEntity;
 using Splitwiser.Services.Interfaces;
 using System;
 using System.Security.Claims;
@@ -12,10 +13,10 @@ namespace Splitwiser.Controllers
     [Route("splitwiserAuth")]
     public class SplitwiserAuthController : Controller
     {
-        private readonly UserManager<UserModel> _userManager;
-        private readonly SignInManager<UserModel> _signInManager;
+        private readonly UserManager<UserEntity> _userManager;
+        private readonly SignInManager<UserEntity> _signInManager;
 
-        public SplitwiserAuthController(UserManager<UserModel> userManager, SignInManager<UserModel> signInManager)
+        public SplitwiserAuthController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager)
         {
             _userManager = userManager ?? throw new NullReferenceException(nameof(userManager));
             _signInManager = signInManager ?? throw new NullReferenceException(nameof(signInManager));
@@ -77,7 +78,7 @@ namespace Splitwiser.Controllers
 			}
 
 			//Musi być taki model
-			var newUser = new UserModel
+			var newUser = new UserEntity
 			{
 				Email = register.Email,
 				UserName = register.Username

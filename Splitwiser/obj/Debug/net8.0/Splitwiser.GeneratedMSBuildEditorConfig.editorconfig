@@ -9,59 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Splitwiser
 build_property.RootNamespace = Splitwiser
-build_property.ProjectDir = E:\Pulpit\Code\dotNet\Splitwiser\Splitwiser\
+build_property.ProjectDir = E:\Pulpit\Code\Git\Splitwiser\Splitwiser\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\Pulpit\Code\dotNet\Splitwiser\Splitwiser
+build_property.MSBuildProjectDirectory = E:\Pulpit\Code\Git\Splitwiser\Splitwiser
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Error.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Group/AddPayment.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Group/AddMember.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQWRkTWVtYmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Group/AddPayment.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQWRkUGF5bWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Group/ChosenGroup.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Group/ChosenGroup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQ2hvc2VuR3JvdXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Group/Create.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Group/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Group/Index.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Group/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Home/Index.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Shared/_ValidationScriptsPartial.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/SplitwiserAuth/Login.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/SplitwiserAuth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BsaXR3aXNlckF1dGhcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/SplitwiserAuth/Register.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/SplitwiserAuth/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BsaXR3aXNlckF1dGhcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/_ViewImports.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/_ViewStart.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Pulpit/Code/dotNet/Splitwiser/Splitwiser/Views/Shared/_Layout.cshtml]
+[E:/Pulpit/Code/Git/Splitwiser/Splitwiser/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-l4rnlx3npn

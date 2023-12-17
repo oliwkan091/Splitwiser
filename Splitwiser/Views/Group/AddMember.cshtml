@@ -1,0 +1,67 @@
+﻿@using Splitwiser.Models
+@using Splitwiser.Models.UserEntity
+@model Tuple<Guid, UserEntity, List<UserViewModel>>
+
+<h1>Dodaj użytkownika</h1>
+
+<h4>Dodaj użytkownika</h4>
+<div class="text-center">
+    @foreach (var user in Model.Item3)
+    {
+        <tr>
+            <td>
+                @user.UserName
+                @* To jest Get *@
+            @if(Model.Item3.Count() > 1) 
+            {
+                <button class="btn btn-danger mr-1 mb-1" onclick="window.location.href='@Url.Action("deleteMember","group", new {Id = user.UserId, GId =  Model.Item1})'">Usun</button>
+            }
+        </tr>
+        <br/>
+    }
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa użytkownika</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Item3)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        @if (Model.Item3.Count() > 1)
+                        {
+                            <button class="btn btn-danger mr-1 mb-1" onclick="window.location.href='@Url.Action("deleteMember","group", new {Id = user.UserId, GId =  Model.Item1})'">Usun</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    @{
+        var searchUser = new UserViewModel();
+    }
+
+    @* By działało przesyłanie po poprzednim api musi być identyczne jakto z którego zostąło otrzymane *@
+    @using (Html.BeginForm("addMember", "group", FormMethod.Post))
+    {
+        <br />
+        <br />
+        <h4>Szukane imie</h4> @Html.TextBoxFor(x => searchUser.UserName)
+        <button class="btn btn-primary mr-1" type="submit">Szukaj</button>
+        <br />
+        @Html.ValidationSummary()
+    }
+
+    <a href="/group/@Model.Item1">
+        <button class="btn btn-outline-primary">Powrót</button>
+    </a>
+</div>
+
+

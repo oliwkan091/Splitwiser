@@ -1,23 +1,78 @@
-﻿@using Splitwiser.Models.GroupPaymentHistory
-@model Guid 
+﻿@using Splitwiser.Models
+@using Splitwiser.Models.GroupPaymentHistory
+@using Splitwiser.Models.UserGroup
+@model Tuple<Guid, List<UserViewModelCheckbox>, bool>
 <h1>Group</h1>
 
 
 @{
     // Initialize the model
     var payment = new GroupPaymentHistoryEntity();
-    //         {
-    //             TransactionName = "Value 1",
-    //             Amount = 42
-    // };
+    List<UserViewModelCheckbox> userListCheckbox = Model.Item2;
 }
 
-@using (Html.BeginForm("AddPayment", "Group", FormMethod.Post))
+@if(!Model.Item3)
+{
+    <h5 style="color: red;">Musisz zaznaczyć przynajmniej jednego użytkownika</h5>
+}
+
+<h4>Wybierz osoby które chcesz obciążyć</h4>
+@using (Html.BeginForm("addPayment", "group", FormMethod.Post))
 {
     <span>TransactionName</span> @Html.TextBoxFor(x => payment.TransactionName)
     <span>Amount</span> @Html.TextBoxFor(x => payment.Amount)
 	<br />
 	@Html.ValidationSummary()
 
+    @for (int i = 0; i < userListCheckbox.Count; i++)
+    {
+        <div>
+            @Html.HiddenFor(model => userListCheckbox[i].UserId)
+            @Html.CheckBoxFor(model => userListCheckbox[i].IsChecked)
+            @userListCheckbox[i].UserName
+        </div>
+    }
+
 	<button type="submit">Dodaj</button>
 }
+
+@*
+<h4>Dodaj użytkownika</h4>
+@foreach (var user in Model.Item2)
+{
+    <tr>
+        <td>
+            @user.UserName
+            @* To jest Get 
+        <td><a href="@Url.Action("deleteMember","group", new {Id = user.UserId, GId =  Model.Item1})">Usuń</a> </td>
+    </tr>
+}
+
+ @{
+    var searchUser = new UserViewModel();
+}
+
+@* By działało przesyłanie po poprzednim api musi być identyczne jakto z którego zostąło otrzymane 
+@using (Html.BeginForm("addMember", "group", FormMethod.Post))
+{
+
+    <div class="form-group">
+         @Html.LabelFor(model => model.IsChecked)
+        @Html.CheckBoxFor(model => model.IsChecked) 
+
+        @for (int i = 0; i < Model.Item2.Count; i++)
+        {
+            <div>
+                @Html.HiddenFor(model => model.Item2[i].UserId) <!-- Include a hidden field for other item properties -->
+                @Html.CheckBoxFor(model => model.Item2[i].IsChecked)
+                @Model.Item2[i].UserName <!-- Include a hidden field for other item properties -->
+                @Html.CheckBoxFor()
+                @Html.LabelFor(model => model.Items[i].IsSelected, Model.Items[i].Name) 
+            </div>
+        }
+    </div>
+    <button type="submit">Submit</button>
+} *@
+
+
+<a href="/group/@Model">Powrót</a>

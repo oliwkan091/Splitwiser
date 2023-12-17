@@ -29,6 +29,9 @@ namespace Splitwiser.EntityFramework.Migrations.Splitwiser
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("GroupName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,12 +71,70 @@ namespace Splitwiser.EntityFramework.Migrations.Splitwiser
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("Splitwiser.Models.PaymentInGroup.PaymentInGroupEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<double>("AmountToPay")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserToBePaidId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserWhoReturnsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentInGroups");
+                });
+
+            modelBuilder.Entity("Splitwiser.Models.PaymentMember.PaymentMemberEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<DateTime>("AddDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("wasPaid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMembers");
+                });
+
             modelBuilder.Entity("Splitwiser.Models.UserGroup.UserGroupEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
+
+                    b.Property<DateTime>("AddDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");

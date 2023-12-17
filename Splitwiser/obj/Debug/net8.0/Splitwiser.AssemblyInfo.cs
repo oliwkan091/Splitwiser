@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Splitwiser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d68ae8e869795769f5d9338af8ef6f8d5bac57a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Splitwiser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Splitwiser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,32 +1,73 @@
-﻿@using Splitwiser.Models
-@model Tuple<List<GroupPaymentHistoryViewModel>, Guid>
+﻿@using Microsoft.AspNetCore.Mvc.Routing
+@using Splitwiser.Models
+@using Splitwiser.Models.PaymentInGroup
+@model Tuple<List<GroupPaymentHistoryViewModel>, Guid, List<PaymentInGroupViewModel>>
 <h1>Group</h1>
 
-@* <a href="@Model.Item2/AddPayment">Dodaj koszty</a> *@
+<a href="addPayment/@Model.Item2">Dodaj koszty</a>
+<a href="addMember/@Model.Item2">Dodaj członków grupy</a>
+@* <a href="addMember/@Model.Item2">Opłać</a> *@
 
-<a href="@Model.Item2/AddPayment">Dodaj koszty</a>
+<div style="display: flex;">
+    <div style="flex: 1;">
+        <table>
+            <thead>
+                <tr>
+                    <th>GroupName</th>
+                    <th>UserName</th>
+                    <th>TransactionName</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var paymentHistory in Model.Item1)
+                {
+                    <tr>
+                        <td>@paymentHistory.GroupName</td>
+                        <td>@paymentHistory.UserName</td>
+                        <td>@paymentHistory.TransactionName</td>
+                        <td>@paymentHistory.Amount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-@* <a asp-action="chosenGroup/@Model.Item2/AddPayment" asp-controller="Group">Dodaj koszty</a> *@
-
-
-<table>
-    <thead>
-        <tr>
-            <th>GroupName</th>
-            <th>UserName</th>
-            <th>TransactionName</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var paymentHistory in Model.Item1)
+    <div style="flex: 1;">
+        @foreach(var settlement in Model.Item3)
         {
-            <tr>
-                <td>@paymentHistory.GroupName</td>
-                <td>@paymentHistory.UserName</td>
-                <td>@paymentHistory.TransactionName</td>
-                <td>@paymentHistory.Amount</td>
-            </tr>
+            @using (Html.BeginForm("paid", "group", new { Id = Model.Item2 }, FormMethod.Post))
+            {
+                @* Musi być podpięte settlement a potem przepisane dla każdego pola, bo inaczej nie przesyła wartości *@
+                var chosenSettlement = settlement;
+                @* <p>@settlement.UserToBePaidId</p> *@
+
+                @if (settlement.AmountToPay == 0)
+                {
+                    <p>Nic nie jesteś winny użytkownikowi @settlement.UserToBePaidName</p>
+                }
+                else if (settlement.AmountToPay > 0)
+                {
+                    <p>Jesteś winny użytkownikowi @settlement.UserToBePaidName @settlement.AmountToPay zł</p>
+                }
+                else
+                {
+                    <p>Użytkownik @settlement.UserToBePaidName
+                        jest ci winny @settlement.AmountToPay
+                        zł</p>
+                }
+
+                @Html.HiddenFor(settlement => chosenSettlement.Id)
+                @Html.HiddenFor(model => chosenSettlement.GroupId)
+                @Html.HiddenFor(model => chosenSettlement.UserWhoReturnsId)
+                @Html.HiddenFor(model => chosenSettlement.UserToBePaidId)
+                @Html.HiddenFor(model => chosenSettlement.AmountToPay)
+                @Html.HiddenFor(model => chosenSettlement.UserToBePaidName)
+                <button type="submit">Zapłać</button>
+            }
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
+
+<a href="/group">Powrót</a>
