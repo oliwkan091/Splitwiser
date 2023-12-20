@@ -62,7 +62,6 @@ namespace Splitwiser.Services
 
         public bool AddPaymentSplit(GroupPaymentHistoryEntity payment, List<UserViewModelCheckbox> userListCheckbox)
         {
-            //_context.PaymentInGroups.AddRange(payment);
             if (userListCheckbox.Where(pm => pm.IsChecked == true).Count() == 0)
             {
                 return false;
@@ -70,11 +69,6 @@ namespace Splitwiser.Services
             double dividedAmount = payment.Amount / (userListCheckbox.Where(pm => pm.IsChecked == true).Count());
 
             var usersToUpdateUserToBePaidId = GetAllPayersOfUserToBePaidInGroup(payment.UserId, payment.GroupId);
-            //var payer = userListCheckbox.Where(u => u.UserId == payment.UserId);
-            //if (payer != null)
-            //{
-            //    userListCheckbox.Remove(payer.First());
-            //}
 
             foreach (var user in userListCheckbox)
             {
@@ -157,6 +151,35 @@ namespace Splitwiser.Services
             _context.PaymentInGroups.Update(paymentForUserWhoIsBeingPaid);
             _context.PaymentInGroups.Update(paymentForUserWhoPays);
             _context.SaveChanges();
+        }
+
+        public void DeleteMemberPayments(Guid deletedUserId, Guid groupId)
+        {
+            var paymentForUserWhoIsBeingPaidList = _context.PaymentInGroups
+                 .Where(pm => pm.GroupId == groupId)
+                 .Where(pm => pm.UserToBePaidId == deletedUserId || pm.UserWhoReturnsId == deletedUserId)
+                 .ToList();
+
+            //var paymentForUserWhoPaysList = _context.PaymentInGroups
+            //     .Where(pm => pm.GroupId == groupId)
+            //     .Where(pm => pm.UserWhoReturnsId == deletedUserId)
+            //     .Distinct()
+            //     .ToList();
+
+            if (paymentForUserWhoIsBeingPaidList.Count == 0)
+                return;
+
+            _context.PaymentInGroups.RemoveRange(paymentForUserWhoIsBeingPaidList);
+            _context.SaveChanges();
+
+            //var paymentForUserWhoIsBeingPaid = paymentForUserWhoIsBeingPaidList.First();
+            //paymentForUserWhoIsBeingPaid.AmountToPay = 0;
+            //var paymentForUserWhoPays = paymentForUserWhoPaysList.First();
+            //paymentForUserWhoPays.AmountToPay = 0;
+
+            //_context.PaymentInGroups.Update(paymentForUserWhoIsBeingPaid);
+            //_context.PaymentInGroups.Update(paymentForUserWhoPays);
+            //_context.SaveChanges();
         }
     }
 }

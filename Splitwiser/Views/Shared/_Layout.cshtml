@@ -29,22 +29,22 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Start</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="Index">Group</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="Index">Grupy</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Logout">Wyloguj</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Login">Zaloguj</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SplitwiserAuth" asp-action="Register">Zarejestruj</a>
                             </li>
                         }
                     </ul>
@@ -60,7 +60,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Splitwiser - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2023 - Splitwiser @* - <a asp-area="" asp-page="/Privacy">Privacy</a> *@
         </div>
     </footer>
 

@@ -1,16 +1,14 @@
 ﻿@using Splitwiser.Models
 @using Splitwiser.Models.GroupPaymentHistory
 @using Splitwiser.Models.UserGroup
-@model Tuple<Guid, List<UserViewModelCheckbox>, bool>
+@model Tuple<Guid, List<UserViewModelCheckbox>, bool, GroupPaymentHistoryEntity>
 
 <style>
-    /* Custom CSS to center the table */
     .center-table {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 50vh
-        /* height: 100vh; /* 100% of the viewport height */ */
     }
 </style>
 
@@ -22,31 +20,49 @@
 
     @{
         // Initialize the model
-        var payment = new GroupPaymentHistoryEntity();
+        var payment = Model.Item4;
         List<UserViewModelCheckbox> userListCheckbox = Model.Item2;
     }
 
-    @using (Html.BeginForm("addPayment", "group", FormMethod.Post))
+    @using (Html.BeginForm("editPayment", "group", FormMethod.Post))
     {
         <p>Tytuł</p> @Html.TextBoxFor(x => payment.TransactionName)
         <p>@Html.ValidationMessageFor(model => payment.TransactionName, "", new { @class = "text-danger" }) </p>
         <p>Kwota</p> @Html.TextBoxFor(x => payment.Amount)
         <p>@Html.ValidationMessageFor(model => payment.Amount, "", new { @class = "text-danger" }) </p>
 	    <br />
+        @Html.HiddenFor(model => payment.Id)
+        @Html.HiddenFor(model => payment.GroupId)
+        @Html.HiddenFor(model => payment.UserId)
+        @Html.HiddenFor(model => payment.AddDate)
 
         <br/>
         <h4>Wybierz osoby które chcesz obciążyć</h4>
 
             <section id="cards" class="bg-faded py-2">
                 <div class="col-xl-6 col-lg-4 mb-4 container center-table">
-                    <div class="card border-primary h-100 container center-table">
+                <div class="card bg-primary border-primary h-100 container center-table">
                         <div class="card-body">
 
                             @for (int i = 0; i < userListCheckbox.Count; i++)
                             {
                                 <div>
                                     @Html.HiddenFor(model => userListCheckbox[i].UserId)
+
+                                @if (userListCheckbox[i].wasPaid)
+                                {
+                                    @Html.CheckBoxFor(model => userListCheckbox[i].IsChecked, new { @disabled = "disabled" })
+                                }else
+                                {
                                     @Html.CheckBoxFor(model => userListCheckbox[i].IsChecked)
+                                }
+                                @* @Html.CheckBoxFor(model => userListCheckbox[i].IsChecked) *@
+
+                    @*                 @{
+                                        var disabledAttribute = userListCheckbox[i].wasPaid ? "disabled" : "enabled";
+                                    }
+
+                                    @Html.CheckBoxFor(model => userListCheckbox[i].IsChecked, new { @disabled = false }) *@
                                     @userListCheckbox[i].UserName
                                 </div>
                             }

@@ -87,8 +87,7 @@ namespace Splitwiser.Services
                 UserGroupEntity userG = userGroup.First();
                 return userG;
             }
-            //_context.UserGroups.Add(user);
-            //_context.SaveChanges();
+
             return null;
         }
 

@@ -12,5 +12,6 @@ namespace Splitwiser.Models.PaymentInGroup
         public Guid UserToBePaidId { get; set; }
         public double AmountToPay { get; set; }
         public string UserToBePaidName { get; set; }
+        public string UserWhoReturnsName { get; set; }
     }
 }

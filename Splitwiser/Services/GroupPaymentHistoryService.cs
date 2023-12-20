@@ -36,7 +36,14 @@ namespace Splitwiser.Services
             return payment;
         }
 
-		public List<GroupPaymentHistoryEntity> GetAll()
+        public void Update(GroupPaymentHistoryEntity payment)
+        {
+            _context.Payments.Update(payment);
+            _context.SaveChanges();
+        }
+
+
+        public List<GroupPaymentHistoryEntity> GetAll()
         {
             var paymentHistory = _context.Payments.ToList();
             return paymentHistory;
@@ -72,7 +79,16 @@ namespace Splitwiser.Services
 				);
 
 			return paymentHistory;
-
         }
-	}
+
+        public GroupPaymentHistoryEntity GetPaymentById(Guid paymentId)
+		{
+            var payment = _context.Payments
+                                 .Where(e => e.Id == paymentId) 
+                                 .SingleOrDefault();
+
+            return payment;
+        }
+
+    }
 }

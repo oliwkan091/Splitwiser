@@ -2,6 +2,7 @@
 using Splitwiser.Models;
 using Splitwiser.Models.GroupPaymentHistory;
 using Splitwiser.Models.PaymentInGroup;
+using Splitwiser.Models.PaymentMember;
 using System.Collections.Generic;
 
 namespace Splitwiser
@@ -13,6 +14,8 @@ namespace Splitwiser
             CreateMap<UserViewModel, UserViewModelCheckbox>();
             CreateMap<GroupPaymentHistoryViewModel, GroupPaymentHistoryEntity>();
             CreateMap<PaymentInGroupEntity, PaymentInGroupViewModel>();
+            CreateMap<PaymentMemberEntity, PaymentMemberViewModel>();
+            CreateMap<PaymentMemberEntity, UserViewModelCheckbox>();
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Splitwiser.Services.Interfaces
         Task<List<PaymentInGroupViewModel>> GetHowMuchCurrentUserOwnToOtherGroupUsers(Guid userId, Guid groupId);
         List<PaymentInGroupEntity> GetAllPayersOfUserToBePaidInGroup(Guid userToBePaidId, Guid groupId);
         void SettleUser(PaymentInGroupViewModel paidUser);
+        void DeleteMemberPayments(Guid deletedUserId, Guid groupId);
     }
 }

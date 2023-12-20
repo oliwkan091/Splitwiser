@@ -6,7 +6,6 @@ namespace Splitwiser.Models
 {
     public class GroupPaymentHistoryViewModel
     {
-        //[Key]
         public Guid Id { get; set; }
         public Guid GroupId { get; set; }
         public string GroupName { get; set; }
@@ -15,11 +14,5 @@ namespace Splitwiser.Models
         public string TransactionName { get; set; }
         public double Amount { get; set; }
         public DateTime AddDate { get; set; }
-
-
-        //      public GroupPaymentHistoryModel()
-        //      {
-        //          Id = new Guid();
-        //}
     }
 }

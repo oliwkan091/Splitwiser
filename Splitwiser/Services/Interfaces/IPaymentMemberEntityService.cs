@@ -10,6 +10,10 @@ namespace Splitwiser.Services.Interfaces
     public interface IPaymentMemberEntityService
     {
         PaymentMemberEntity Add(PaymentMemberEntity paymentMember);
-        List<PaymentMemberEntity> GetAllPaymentMemberOfGroups(Guid groupId);
+        List<PaymentMemberEntity> GetAllPaymentMemberOfGroup(Guid groupId);
+        List<PaymentMemberEntity> GetAllPaymentMemberOfPayment(Guid paymentId);
+        List<PaymentMemberEntity> GetUserPaymentInGroup(Guid groupId, Guid userId);
+        void SettleUserInPayment(Guid userId, Guid groupId);
+        PaymentMemberEntity Update(PaymentMemberEntity paymentMember);
     }
 }

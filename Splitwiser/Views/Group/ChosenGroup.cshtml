@@ -1,73 +1,130 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Routing
 @using Splitwiser.Models
 @using Splitwiser.Models.PaymentInGroup
-@model Tuple<List<GroupPaymentHistoryViewModel>, Guid, List<PaymentInGroupViewModel>>
-<h1>Group</h1>
+@using Splitwiser.Models.PaymentMember
+@model Tuple<List<GroupPaymentHistoryViewModel>, Guid, List<PaymentInGroupViewModel>, List<PaymentMemberViewModel>>
 
-<a href="addPayment/@Model.Item2">Dodaj koszty</a>
-<a href="addMember/@Model.Item2">Dodaj członków grupy</a>
-@* <a href="addMember/@Model.Item2">Opłać</a> *@
+<style>
+    /* Custom CSS to center the table */
+    .center-table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; /* 100% of the viewport height */ 
+        width: 80vh
+    }
+</style>
 
-<div style="display: flex;">
-    <div style="flex: 1;">
-        <table>
-            <thead>
-                <tr>
-                    <th>GroupName</th>
-                    <th>UserName</th>
-                    <th>TransactionName</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var paymentHistory in Model.Item1)
-                {
-                    <tr>
-                        <td>@paymentHistory.GroupName</td>
-                        <td>@paymentHistory.UserName</td>
-                        <td>@paymentHistory.TransactionName</td>
-                        <td>@paymentHistory.Amount</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<div class="text-center">
+
+    <h1>Group</h1>
+    <br/>
+
+    <a href="/group/addPayment/@Model.Item2">
+        <button class="btn btn-primary mr-1">Dodaj koszty</button>
+    </a>
+
+    <a href="/group/addMember/@Model.Item2">
+        <button class="btn btn-primary mr-1">Zarządzaj członkami grupy</button>
+    </a>
+    <br />
+    <br />
+
+    <div style="display: flex;">
+        <div style="flex: 1;" class="p-1">
+            <h4>Historia płatności</h4>
+            <section id="cards" class="bg-faded py-2">
+                @* <div class="col-xl-6 col-lg-4 mb-4 container center-table"> *@
+                    <div class="card border-primary h-100 w-100 container center-table">
+                        <div class="card-body">
+                            <table class="table table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Dodane przez</th>
+                                        <th>Tytuł</th>
+                                        <th>Kwota</th>
+                                        <th>Dotyczy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var paymentHistory in Model.Item1)
+                                    {
+                                    bool wasPaid = false;
+                                    <tr>
+                                            <td>@paymentHistory.UserName</td>
+                                            <td>@paymentHistory.TransactionName</td>
+                                            <td>@paymentHistory.Amount</td>
+                                            <td>
+                                                @foreach (var member in Model.Item4.Where(m => m.PaymentId == paymentHistory.Id))
+                                                {
+                                                    <span>@member.memberName,</span>
+                                                    @if(@member.wasPaid)
+                                                    {
+                                                    wasPaid = true;
+                                                }
+                                            }
+                                            </td>
+                                            @if(!wasPaid)
+                                            {
+                                                <td><button class="btn btn-primary mr-1" onclick="window.location.href='@Url.Action("editPayment","group", new {groupId = Model.Item2, paymentId = paymentHistory.Id})'">Edytuj</button></td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @* </div> *@
+            </section>
+        </div>
+
+
+        <div style="flex: 1;" class="p-1">
+            <h4>Należności</h4>
+            <section id="cards" class="bg-faded py-2">
+                <div class="card border-primary h-100 w-100 container center-table">
+                    <div class="card-body">
+                        @foreach(var settlement in Model.Item3)
+                        {
+                            @using (Html.BeginForm("paid", "group", new { Id = Model.Item2 }, FormMethod.Post))
+                            {
+                                @* Musi być podpięte settlement a potem przepisane dla każdego pola, bo inaczej nie przesyła wartości *@
+                                var chosenSettlement = settlement;
+                                @* <p>@settlement.UserToBePaidId</p> *@
+
+                                @if (settlement.AmountToPay == 0)
+                                {
+                                    <span>Nic nie jesteś winny użytkownikowi @settlement.UserWhoReturnsName</span>
+                                }
+                                else if (settlement.AmountToPay < 0)
+                                {
+                                    <span>Jesteś winny użytkownikowi @settlement.UserWhoReturnsName @settlement.AmountToPay zł</span>
+                                    <button class="btn btn-primary" type="submit">Zapłać</button>
+                                }
+                                else
+                                {
+                                    <span>Użytkownik @settlement.UserToBePaidName jest ci winny @settlement.AmountToPay zł</span>
+                                }
+
+                                @* <button class="btn btn-primary" type="submit">Zapłać</button> *@
+
+                                @Html.HiddenFor(settlement => chosenSettlement.Id)
+                                @Html.HiddenFor(model => chosenSettlement.GroupId)
+                                @Html.HiddenFor(model => chosenSettlement.UserWhoReturnsId)
+                                @Html.HiddenFor(model => chosenSettlement.UserToBePaidId)
+                                @Html.HiddenFor(model => chosenSettlement.AmountToPay)
+                                @Html.HiddenFor(model => chosenSettlement.UserToBePaidName)
+                            }
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
+    <br />
+    <br />
 
-    <div style="flex: 1;">
-        @foreach(var settlement in Model.Item3)
-        {
-            @using (Html.BeginForm("paid", "group", new { Id = Model.Item2 }, FormMethod.Post))
-            {
-                @* Musi być podpięte settlement a potem przepisane dla każdego pola, bo inaczej nie przesyła wartości *@
-                var chosenSettlement = settlement;
-                @* <p>@settlement.UserToBePaidId</p> *@
-
-                @if (settlement.AmountToPay == 0)
-                {
-                    <p>Nic nie jesteś winny użytkownikowi @settlement.UserToBePaidName</p>
-                }
-                else if (settlement.AmountToPay > 0)
-                {
-                    <p>Jesteś winny użytkownikowi @settlement.UserToBePaidName @settlement.AmountToPay zł</p>
-                }
-                else
-                {
-                    <p>Użytkownik @settlement.UserToBePaidName
-                        jest ci winny @settlement.AmountToPay
-                        zł</p>
-                }
-
-                @Html.HiddenFor(settlement => chosenSettlement.Id)
-                @Html.HiddenFor(model => chosenSettlement.GroupId)
-                @Html.HiddenFor(model => chosenSettlement.UserWhoReturnsId)
-                @Html.HiddenFor(model => chosenSettlement.UserToBePaidId)
-                @Html.HiddenFor(model => chosenSettlement.AmountToPay)
-                @Html.HiddenFor(model => chosenSettlement.UserToBePaidName)
-                <button type="submit">Zapłać</button>
-            }
-        }
-    </div>
+    <a href="/group">
+        <button class="btn btn-outline-primary">Powrót</button>
+    </a>
 </div>
-
-
-<a href="/group">Powrót</a>

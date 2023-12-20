@@ -11,5 +11,7 @@ namespace Splitwiser.Services.Interfaces
         Task<GroupPaymentHistoryEntity> Add(GroupPaymentHistoryEntity book);
 		List<GroupPaymentHistoryEntity> GetAll();
         List<GroupPaymentHistoryViewModel> GetGroupDetails(Guid groupId);
+        GroupPaymentHistoryEntity GetPaymentById(Guid paymentId);
+        void Update(GroupPaymentHistoryEntity payment);
     }
 }
